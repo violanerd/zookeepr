@@ -1,7 +1,13 @@
-const { query } = require('express');
+const { query } = require('express'); // why is this here? check code. 
 const express = require('express');
 const { animals } = require('./data/animals.json');
 const app = express();
+
+// parse incoming string or array data
+app.use(express.urlencoded({ extended: true }));
+// parse incoming JSON data
+app.use(express.json());
+
 const PORT = process.env.PORT || 3001;
 
 function fliterByQuery(query, animalsArray){
@@ -63,6 +69,13 @@ app.get('/api/animals/:id', (req, res)=> {
     }
     
 });
+
+app.post('/api/animals', (req, res) => {
+    // req.body is where our incoming content will ne
+    console.log(req.body);
+    res.json(req.body);
+});
+
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
