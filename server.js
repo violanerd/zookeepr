@@ -41,12 +41,27 @@ function fliterByQuery(query, animalsArray){
     }
     return filteredResults;
 }
+
+function findById(id, animalsArray){
+    const result  = animalsArray.filter(animal => animal.id === id)[0];
+    return result;
+}
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if (req.query) {
         results = fliterByQuery(req.query, results);
     }
     res.json(results);
+});
+
+app.get('/api/animals/:id', (req, res)=> {
+    const result = findById(req.params.id, animals);
+    if (result) {
+        res.json(result);
+    } else {
+        res.status(404).send("Sorry we can't find that!");
+    }
+    
 });
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
