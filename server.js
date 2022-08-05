@@ -2,6 +2,8 @@ const { query } = require('express'); // why is this here? check code.
 const express = require('express');
 const { animals } = require('./data/animals.json');
 const app = express();
+const fs = require('fs');
+const path = require('path');
 
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
@@ -52,6 +54,32 @@ function findById(id, animalsArray){
     const result  = animalsArray.filter(animal => animal.id === id)[0];
     return result;
 }
+
+function createNewAnimal(body, animalsArray){
+    const animal = body;
+    animalsArray.push(animal);
+    console.log(path.join(__dirname, './data/animals.json'));
+    fs.writeFileSync(
+        path.join(__dirname, './data/animals.json'),
+        JSON.stringify({animals: animalsArray}, null, 2));
+    return animal;
+}
+
+function validateAnimal(animal) {
+    if (!animal.name || typeof animal.name !== 'string'){
+        return false;
+    }
+    if (!animal.species || typeof animal.species !== 'string'){
+        return false;
+    }
+    if (!animal.diet || typeof animal.diet !== 'string'){
+        return false;
+    }
+    if (!animal.personalityTraits || !Array.isArray(animal.personalityTraits)){
+        return false;
+    }
+    return true;
+}
 app.get('/api/animals', (req, res) => {
     let results = animals;
     if (req.query) {
@@ -71,9 +99,15 @@ app.get('/api/animals/:id', (req, res)=> {
 });
 
 app.post('/api/animals', (req, res) => {
-    // req.body is where our incoming content will ne
-    console.log(req.body);
-    res.json(req.body);
+    // req.body is where our incoming content will be
+    console.log('req.body', req.body);
+    req.body.id = animals.length.toString(); //sets id based off of next index in array
+    if (!validateAnimal(req.body)){
+        res.status(400).send('Animal was improperly formatted');
+    } else {
+        const animal = createNewAnimal(req.body, animals);
+        res.json(animal);
+    }
 });
 
 app.listen(PORT, () => {
