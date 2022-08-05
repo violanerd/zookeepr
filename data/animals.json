@@ -100,7 +100,6 @@
         "hungry"
       ]
     },
-    "10",
     {
       "name": "Larry",
       "species": "lemur",
@@ -154,6 +153,16 @@
         "hungry"
       ],
       "id": "16"
+    },
+    {
+      "name": "Test",
+      "species": "Orange Tabby",
+      "diet": "herbivore",
+      "personalityTraits": [
+        "loving",
+        "goofy"
+      ],
+      "id": "17"
     }
   ]
 }
