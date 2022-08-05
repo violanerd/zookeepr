@@ -5,12 +5,13 @@ const app = express();
 const fs = require('fs');
 const path = require('path');
 
+const PORT = process.env.PORT || 3001;
+
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
-
-const PORT = process.env.PORT || 3001;
+app.use(express.static('public'));
 
 function fliterByQuery(query, animalsArray){
     let personalityTraitsArray = [];
@@ -110,6 +111,9 @@ app.post('/api/animals', (req, res) => {
     }
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
