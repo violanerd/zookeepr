@@ -172,6 +172,25 @@
         "zany"
       ],
       "id": "17"
+    },
+    {
+      "name": "Test",
+      "species": "Test 2",
+      "diet": "carnivore",
+      "personalityTraits": [
+        "hungry"
+      ],
+      "id": "18"
+    },
+    {
+      "name": "Bobby",
+      "species": "cat",
+      "diet": "omnivore",
+      "personalityTraits": [
+        "hungry",
+        "lovey"
+      ],
+      "id": "19"
     }
   ]
 }
