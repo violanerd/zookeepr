@@ -163,6 +163,15 @@
         "goofy"
       ],
       "id": "17"
+    },
+    {
+      "name": "Test",
+      "species": "Test 2",
+      "diet": "herbivore",
+      "personalityTraits": [
+        "zany"
+      ],
+      "id": "17"
     }
   ]
 }
