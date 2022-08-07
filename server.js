@@ -1,12 +1,10 @@
-const { query } = require('express'); // why is this here? check code. 
 const express = require('express');
+
+const PORT = process.env.PORT || 3001;
 const app = express();
 const apiRoutes = require('./routes/apiRoutes');
 const htmlRoutes = require('./routes/htmlRoutes');
 
-
-
-const PORT = process.env.PORT || 3001;
 
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
